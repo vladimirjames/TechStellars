@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8 text-center">
+        <h1 class="display-4 text-success">🌱 Smart Crop Disease Detector</h1>
+        <p class="lead">Upload plant images to detect diseases and get instant treatment recommendations</p>
+        
+        {% if not session.user_id %}
+        <div class="mt-5">
+            <a href="/register" class="btn btn-success btn-lg me-3">Get Started</a>
+            <a href="/login" class="btn btn-outline-success btn-lg">Login</a>
+        </div>
+        {% else %}
+        <div class="mt-5">
+            <a href="/detect" class="btn btn-success btn-lg me-3">Detect Disease</a>
+            <a href="/dashboard" class="btn btn-outline-success btn-lg">Dashboard</a>
+        </div>
+        {% endif %}
+        
+        <div class="row mt-5">
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5>📸 Upload Image</h5>
+                        <p>Take a clear photo of plant leaves, stems, or fruits</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5>🔍 AI Analysis</h5>
+                        <p>Our system analyzes the image for disease patterns</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5>💡 Get Solutions</h5>
+                        <p>Receive prevention measures and treatment options</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

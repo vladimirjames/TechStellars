@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block title %}Detect Disease - Crop Doctor{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-body">
+                <h3 class="card-title text-center">🌿 Detect Plant Disease</h3>
+                
+                <form method="POST" enctype="multipart/form-data">
+                    <div class="mb-3">
+                        <label class="form-label">Select Crop Type:</label>
+                        <select name="crop_type" class="form-select" required>
+                            <option value="tomato">Tomato</option>
+                            <option value="potato">Potato</option>
+                            <option value="corn">Corn</option>
+                            <option value="general">General/Unknown</option>
+                        </select>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label">Upload Plant Image:</label>
+                        <div class="upload-area" onclick="document.getElementById('imageInput').click()">
+                            <h5>📁 Click to Upload Image</h5>
+                            <p class="text-muted">Supported formats: JPG, PNG</p>
+                            <p class="text-muted">Max size: 8MB</p>
+                        </div>
+                        <input type="file" id="imageInput" name="image" accept="image/*" style="display: none;" required
+                               onchange="previewImage(this)">
+                    </div>
+                    
+                    <div id="imagePreview" class="text-center mb-3" style="display: none;">
+                        <img id="preview" src="#" alt="Preview" style="max-width: 300px; max-height: 300px;">
+                    </div>
+                    
+                    <button type="submit" class="btn btn-success w-100 btn-lg">🔍 Analyze Image</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function previewImage(input) {
+    if (input.files && input.files[0]) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            document.getElementById('preview').src = e.target.result;
+            document.getElementById('imagePreview').style.display = 'block';
+        }
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+</script>
+{% endblock %}

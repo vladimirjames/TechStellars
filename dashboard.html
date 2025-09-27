@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard - Crop Doctor{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-8">
+        <h2>Welcome, {{ fullname }}! 👋</h2>
+        <p class="lead">Plant disease detection made simple</p>
+    </div>
+    <div class="col-md-4 text-end">
+        <a href="/detect" class="btn btn-success btn-lg">🌿 New Detection</a>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h5>Recent Detections</h5>
+            </div>
+            <div class="card-body">
+                {% if detections %}
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Crop Type</th>
+                                <th>Disease</th>
+                                <th>Confidence</th>
+                                <th>Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for detection in detections %}
+                            <tr>
+                                <td>{{ detection.crop_type|title }}</td>
+                                <td>
+                                    <span class="badge bg-{{ 'success' if detection.disease_name == 'Healthy' else 'danger' }}">
+                                        {{ detection.disease_name }}
+                                    </span>
+                                </td>
+                                <td>{{ "%.1f"|format(detection.confidence) }}%</td>
+                                <td>{{ detection.detected_at[:16] }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                {% else %}
+                <p class="text-muted">No detection history yet. <a href="/detect">Start your first detection!</a></p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
